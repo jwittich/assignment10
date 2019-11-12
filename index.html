@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Weather API</title>
+	<title>FTL API</title>
 	<meta charset="utf-8"/>
 	<style>
 	h1 {
@@ -15,13 +15,10 @@
 	}
 	</style>
 	<script>
-		function getWeather() {
-			/* Step 1: Make instance of request object...
-			...to make HTTP request after page is loaded*/
+		function getdata() {
 			request = new XMLHttpRequest();
 			console.log("1 - request object created");
 
-			// Step 2: Set the URL for the AJAX request to be the JSON file
 
 			request.open("GET", "http://api.openweathermap.org/data/2.5/weather?id=4155966&units=imperial&APPID=2d0f6cc7e412e936707c42c7709b43dd", true);
 
@@ -34,7 +31,6 @@
 
 				if (request.readyState == 4 && request.status == 200) {
 
-					// Step 5: wait for done + success
 
 					result = request.responseText;
 					alert(result)
@@ -45,18 +41,18 @@
 				}
 				else if (request.readyState == 4 && request.status != 200) {
 
-					document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+					document.getElementById("data").innerHTML = "Something is wrong!";
 
 				}
 
 				else if (request.readyState == 3) {
 
-					document.getElementById("data").innerHTML = "Too soon!  Try again";
+					document.getElementById("data").innerHTML = "Try again";
 
 				}
 
 			}
-		// Step 4: fire off the HTTP request
+		
 			request.send();
 			console.log("4 - Request sent");
 		}
@@ -64,10 +60,10 @@
 </head>
 
 
-<body onload="getWeather()">
+<body onload="getdata()">
 
 	<h1>Sunshine State</h1>
-	<p> Info <br> <br> I selected the forecast API on Open Weather; It shares the current temperature, pressure (representative of calm-high Pa or intense-low Pa weather), and humidity (things all necessary to know when at home).
+	<h2> Info <h2> <br> I selected the forecast API on Open Weather; It shares the current temperature, pressure (representative of calm-high Pa or intense-low Pa weather), and humidity (things all necessary to know when at home).
 			<br> <a href="https://openweathermap.org/forecast16#cityid16">Where I found my API</a>
 			<br> The options I used for the API request was GET, cors,  and no headers.
 			<br> This API is helpful for any weather related events like a website for a community park, given the data they could
