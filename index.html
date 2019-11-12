@@ -33,8 +33,7 @@
 
 
 					result = request.responseText;
-					alert(result)
-					weather = JSON.parse(result);
+					data = JSON.parse(result);
 					document.getElementById("data").innerHTML ="It is " +  weather["main"]["temp"] + " degrees Farenheit in Fort Lauderdale, Florida right now"+ "<br>" + " Pressure is " + weather["main"]["pressure"] + " Pascals" + "<br>"+ " Humidity is  " + weather["main"]["humidity"] + "%";
 
 
