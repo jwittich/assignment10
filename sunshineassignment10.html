@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<title>Weather API</title>
+	<meta charset="utf-8"/>
+	<style>
+	h1 {
+		color: #ffa500;
+		border-style: dotted;
+		border-color:#ffea00;
+		border-width:thick;
+		text-align: center;
+		font-size: 50px;
+
+	}
+	</style>
+	<script>
+		function getWeather() {
+			/* Step 1: Make instance of request object...
+			...to make HTTP request after page is loaded*/
+			request = new XMLHttpRequest();
+			console.log("1 - request object created");
+
+			// Step 2: Set the URL for the AJAX request to be the JSON file
+
+			request.open("GET", "http://api.openweathermap.org/data/2.5/weather?id=4155966&units=imperial&APPID=2d0f6cc7e412e936707c42c7709b43dd", true);
+
+			console.log("2 - opened request file");
+
+			// Step 3: set up event handler/callback
+
+			request.onreadystatechange = function() {
+				console.log("3 - readystatechange event fired.");
+
+				if (request.readyState == 4 && request.status == 200) {
+
+					// Step 5: wait for done + success
+
+					result = request.responseText;
+					alert(result)
+					weather = JSON.parse(result);
+					document.getElementById("data").innerHTML ="It is " +  weather["main"]["temp"] + " degrees Farenheit in Fort Lauderdale, Florida right now"+ "<br>" + " Pressure is " + weather["main"]["pressure"] + " Pascals" + "<br>"+ " Humidity is  " + weather["main"]["humidity"] + "%";
+
+
+				}
+				else if (request.readyState == 4 && request.status != 200) {
+
+					document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+
+				}
+
+				else if (request.readyState == 3) {
+
+					document.getElementById("data").innerHTML = "Too soon!  Try again";
+
+				}
+
+			}
+		// Step 4: fire off the HTTP request
+			request.send();
+			console.log("4 - Request sent");
+		}
+	</script>
+</head>
+
+
+<body onload="getWeather()">
+
+	<h1>Sunshine State</h1>
+	<p> Info <br> <br> I selected the forecast API on Open Weather; It shares the current temperature, pressure (representative of calm-high Pa or intense-low Pa weather), and humidity (things all necessary to know when at home).
+			<br> <a href="https://openweathermap.org/forecast16#cityid16">Where I found my API</a>
+			<br> The options I used for the API request was GET, cors,  and no headers.
+			<br> This API is helpful for any weather related events like a website for a community park, given the data they could
+			have the website display conditions and status ie if humidity > 80 then doc.write the park is closed.
+			<br> Additionally, if shopping online, the weather data could be used to push certain syles for you like summer versus winter attire based on temperature of where you are or somewhere else. </p>
+			<br> <br>
+	<div id="data">Loading...</div>
+</body>
+</html>
